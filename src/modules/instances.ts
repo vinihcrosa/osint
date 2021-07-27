@@ -1,5 +1,7 @@
 import getClient from '../database/elasticsearch';
 
+import { Instance } from '../types'
+
 export default {
   async getInstances() {
     const instances =  await getClient().search({
@@ -18,5 +20,36 @@ export default {
     })
 
     return aux_instances;
+  },
+
+  async postInstance(instance: Instance) {
+    console.log(instance)
+
+    const has_instance_response =  await getClient().search({
+      index: 'instance',
+      body: {
+        query: {
+          match: {
+            "target.keyword": instance.target
+          }
+        }
+      }
+    });
+
+    if(has_instance_response.hits.hits.length > 0)
+      return { 
+        status: "target ja existente"
+      }
+
+      await getClient().index({
+        index: "instance",
+        type: "type_instance",
+        body: instance
+      })
+
+      return { 
+        status: "target criado"
+      }
+    
   }
 }
