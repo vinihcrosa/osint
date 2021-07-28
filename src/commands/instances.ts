@@ -17,7 +17,7 @@ function askForTags(): string[] {
   return tags
 }
 
-const getInstances: GluegunCommand = {
+const instances: GluegunCommand = {
   name: "instances",
   run: async toolbox => {
     const { parameters} = toolbox;
@@ -41,4 +41,4 @@ const getInstances: GluegunCommand = {
   }
 }
 
-module.exports = getInstances;
+module.exports = instances;

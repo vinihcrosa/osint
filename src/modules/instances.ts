@@ -1,10 +1,12 @@
 import getClient from '../database/elasticsearch';
 
 import { Instance } from '../types'
+import Config from './config';
 
 export default {
   async getInstances() {
-    const instances =  await getClient().search({
+    try{
+      const instances =  await getClient().search({
       index: 'instance',
       size: 1000
     })
@@ -20,6 +22,10 @@ export default {
     })
 
     return aux_instances;
+  }catch(err){
+    Config.printConfig();
+  }
+    
   },
 
   async postInstance(instance: Instance) {
