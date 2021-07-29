@@ -6,18 +6,20 @@ import Config from './config';
 export default {
   async getInstances() {
     try{
+    
       const instances =  await getClient().search({
-      index: 'instance',
-      size: 1000
-    })
+        index: 'instance',
+        size: 1000
+      })
 
+      console.log('entrou aqui')
 
-    const aux_instances = await instances.hits.hits.map(instance => {
-      const aux = {
-        name: instance._source.name,
-        target: instance._source.target,
-        tags: instance._source.tags
-      }
+      const aux_instances = await instances.hits.hits.map(instance => {
+        const aux = {
+          name: instance._source.name,
+          target: instance._source.target,
+          tags: instance._source.tags
+        }
       return aux
     })
 

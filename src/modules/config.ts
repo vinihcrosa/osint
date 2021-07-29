@@ -25,7 +25,10 @@ const Config = {
     
     config[configName] = value;
 
-    await fs.writeFileSync(configPath, JSON.stringify(config));
+    fs.writeFileSync(configPath, JSON.stringify(config));
+
+    console.log("Configuração adicionada");
+
   }
 }
 

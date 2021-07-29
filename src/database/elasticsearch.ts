@@ -6,17 +6,19 @@ import * as config from  '../../global.config.json';
 dotenv.config();
 
 function getClient() {
-  if(!config['elasticsearchURL']){
+  if(!config['elasticSearchURL']){
     console.log('Por favor forneça as informações para se conectar com o elasticsearch')
     return new Error('Configurações inválidas');
   }
 
+  console.log('não está no if de erro', config.elasticSearchURL)
+
   const client = new elasticsearch.Client(
-    {
-      host: "https://vpc-security-q72dloacmrzr3hnaeet6shpyuq.us-east-2.es.amazonaws.com/",
-      log: 'warning'
-    }
-  )
+  {
+    host: config.elasticSearchURL,
+    log: 'warning'
+  })
+
   return client
 }
 
