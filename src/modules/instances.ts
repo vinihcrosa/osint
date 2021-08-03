@@ -1,5 +1,5 @@
 import getClient from '../database/elasticsearch';
-
+ 
 import { Instance } from '../types'
 import Config from './config';
 
@@ -33,6 +33,12 @@ export default {
   async postInstance(instance: Instance) {
     console.log(instance)
 
+    if(!instance.name || !instance.target || !instance.tags){
+      return {
+        status: "Argumentos faltando"
+      }
+    }
+
     const has_instance_response =  await getClient().search({
       index: 'instance',
       body: {
@@ -49,15 +55,16 @@ export default {
         status: "target ja existente"
       }
 
-      await getClient().index({
-        index: "instance",
-        type: "type_instance",
-        body: instance
-      })
+    console.log(instance)
 
-      return { 
-        status: "target criado"
-      }
-    
+    await getClient().index({
+      index: "instance",
+      type: "type_instance",
+      body: instance
+    })
+
+    return { 
+      status: "target criado"
+    }
   }
 }

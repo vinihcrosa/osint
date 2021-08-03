@@ -1,7 +1,10 @@
 import {GluegunCommand} from 'gluegun';
 import * as readline from 'readline-sync';
+import * as fs from 'fs';
 
 import Instances from '../modules/instances';
+
+import { asyncForEach, waitFor } from '../modules/functions'
 
 import {Instance} from '../types'
 
@@ -22,21 +25,45 @@ const instances: GluegunCommand = {
   run: async toolbox => {
     const { parameters} = toolbox;
 
-    const { get, post } = parameters.options;
+    const { get, post, j } = parameters.options;
 
     if(get){
       const instances = await Instances.getInstances()
       console.log(instances);
+
+      if(j){
+        fs.writeFileSync(j, JSON.stringify({instances}))
+      }
+     
     } else if(post){
-      console.log("Insira os valores da Instance que quer criar")
+      if(j){
+        const instances = JSON.parse(fs.readFileSync(j).toString()); 
 
-      const instance: Instance = {
-        name: readline.question("Name ->"),
-        target: readline.question("Target ->"),
-        tags: askForTags()
-      };
+        asyncForEach(instances.instances, async instance => {
+          const newInstance = {
+            name: instance.name,
+            target: instance.target,
+            tags: instance.tags
+          }
 
-     Instances.postInstance(instance);      
+          //console.log(newInstance)
+
+          Instances.postInstance(newInstance)
+
+          await waitFor(1000)
+        })
+
+      }else{
+        console.log("Insira os valores da Instance que quer criar")
+
+        const instance: Instance = {
+          name: readline.question("Name ->"),
+          target: readline.question("Target ->"),
+          tags: askForTags()
+        };
+  
+       Instances.postInstance(instance);
+      }      
     }
   }
 }

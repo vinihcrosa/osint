@@ -11,7 +11,7 @@ function getClient() {
     return new Error('Configurações inválidas');
   }
 
-  console.log('não está no if de erro', config.elasticSearchURL)
+  //console.log('não está no if de erro', config.elasticSearchURL)
 
   const client = new elasticsearch.Client(
   {

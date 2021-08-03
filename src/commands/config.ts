@@ -18,6 +18,8 @@ const config: GluegunCommand = {
       } else {
         toolbox.print.error('Parâmetros faltando, por favor coloque primeiro o nome da configuração e em seguida seu valor');
       }
+    }else {
+      console.log('Por favor digite a opção desejada')
     }
     
   }

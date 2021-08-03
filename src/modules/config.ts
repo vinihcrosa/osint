@@ -1,6 +1,7 @@
-import * as config from '../../global.config.json';
 import * as fs from 'fs'
 import * as path from 'path'
+
+import * as config from '../../global.config.json';
 
 const configPath = path.resolve(__dirname ,'../', '../', 'global.config.json');
 
