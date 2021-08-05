@@ -1,25 +1,49 @@
 # osint CLI
 
-A CLI for osint.
+## Instalação
 
-## Customizing your CLI
-
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
-
-## Publishing to NPM
-
-To package your CLI up for NPM, do this:
+Para instalar a cli osint é necessário ter o node v14+ instalado na máquina.
+Após baixar ou clonar o repositório rode os seguintes comandos:
 
 ```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
+npm install
+npm link
 ```
+
+Após isso a cli já estará instalada no seu computador.
+
+## Comandos
+
+### Config
+
+- --print -> Imprime as configurqações e se estão ou não configuradas
+
+- --add -> Sdicionar uma configuração.
+
+### Instances
+
+- --get -> Retorna todas as instances que estão no elasticsearch
+
+- --post -> Adiciona uma instance
+
+  - -j -> Adiciona as instances de um arquivo JSON especificado com a estrutura:
+
+  ```json
+  {
+    instances: [{
+      name: "name",
+      target: "target",
+      tags: ['tag1', 'tag2', ...]
+    },
+    ...
+    ]
+  }
+  ```
+
+### Spiderfoot
+
+- --scan -> Inicia o scan das instances que estão no eslasticsearch
 
 # License
 
 MIT - see LICENSE
-
