@@ -1,4 +1,6 @@
-import { Column, Entity, Generated, PrimaryColumn } from 'typeorm'
+import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm'
+
+import Result from './Result'
 
 @Entity('scan')
 export default class Scan {
@@ -17,4 +19,7 @@ export default class Scan {
 
   @Column("varchar", {array: true})
   tags: string[]
+
+  @OneToMany(() => Result, result => result.scan)
+  results: Result[]
 }
