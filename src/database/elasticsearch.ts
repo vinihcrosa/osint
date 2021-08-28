@@ -1,21 +1,17 @@
 import * as elasticsearch from 'elasticsearch';
 import * as dotenv from 'dotenv';
 
-import * as config from  '../../global.config.json';
+import Config from '../modules/config'
 
 dotenv.config();
 
 function getClient() {
-  if(!config['elasticSearchURL']){
-    console.log('Por favor forneça as informações para se conectar com o elasticsearch')
-    return new Error('Configurações inválidas');
-  }
+  const { config, erro } = Config.getConfig("elasticSearchURL")
 
-  //console.log('não está no if de erro', config.elasticSearchURL)
-
+  if(erro) return
   const client = new elasticsearch.Client(
   {
-    host: config.elasticSearchURL,
+    host: config,
     log: 'warning'
   })
 

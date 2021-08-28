@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": false,
-    "experimentalDecorators": true,
     "lib": [
       "es2015",
       "scripthost",
@@ -22,7 +21,10 @@
     "target": "es5",
     "declaration": true,
     "declarationDir": "build/types",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
+    "emitDecoratorMetadata": true,
   },
   "include": [
     "src/**/*"

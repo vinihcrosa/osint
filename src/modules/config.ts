@@ -5,18 +5,27 @@ import * as config from '../../global.config.json';
 
 const configPath = path.resolve(__dirname ,'../', '../', 'global.config.json');
 
-const configs = ['elasticSearchURL', 'spiderfootURL']
+
 
 const Config = {
+  configs: [
+    'elasticSearchURL', 
+    'spiderfootURL',
+    'spiderfootDB',
+    'databaseDB',
+    'databaseHOST',
+    'databaseUSER',
+    'databasePASS'
+  ],
   printConfig() {
     console.log('Configurações válidas')
-    configs.forEach(configName => {
+    this.configs.forEach(configName => {
       config[configName]? console.log(configName, ' -> Configurado') : console.log(configName, ' -> Não configurado')
     })
   },
 
   async addConfig(configName: string, value: string){
-    const index = configs.indexOf(configName);
+    const index = this.configs.indexOf(configName);
 
     if(index < 0){
       console.log('Por favor digite o nome da configuração corretamente');
@@ -30,6 +39,22 @@ const Config = {
 
     console.log("Configuração adicionada");
 
+  }, 
+
+  getConfig(configName: string) {
+    if(!config[configName]){
+      console.log(`Por favor configure o ${configName}`)
+      return {
+        config: null,
+        erro: true
+      }
+    } else{
+      console.log("'Deu bom -> ", configName)
+      return {
+        config: config[configName],
+        erro: false
+      }
+    }
   }
 }
 

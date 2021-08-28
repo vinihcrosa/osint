@@ -8,6 +8,7 @@ Após baixar ou clonar o repositório rode os seguintes comandos:
 ```shell
 npm install
 npm link
+osint init
 ```
 
 Após isso a cli já estará instalada no seu computador.

@@ -2,11 +2,13 @@ import {GluegunCommand} from 'gluegun';
 import * as querystring from 'querystring';
 import axios from 'axios';
 
-import { spiderfootURL } from '../../global.config.json'
+import Config from '../modules/config'
 import Instance from '../modules/instances';
 
+const { config, erro } = Config.getConfig("spiderfootURL")
+
 const api = axios.create({
-  baseURL: spiderfootURL
+  baseURL: config
 });
 
 import {asyncForEach, waitFor} from '../modules/functions'
@@ -14,9 +16,9 @@ import {asyncForEach, waitFor} from '../modules/functions'
 const spiderfoot: GluegunCommand = {
   name: "spiderfoot",
   run: async toolbox => {
+    if(erro) return
+
     const { parameters } = toolbox;
-
-
 
     const { scan } = parameters.options;
 

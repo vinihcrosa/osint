@@ -28,18 +28,18 @@ const instances: GluegunCommand = {
     const { get, post, j } = parameters.options;
 
     if(get){
-      const instances = await Instances.getInstances()
-      console.log(instances);
+      const allInstances = await Instances.getInstances()
+      console.log(allInstances);
 
       if(j){
-        fs.writeFileSync(j, JSON.stringify({instances}))
+        fs.writeFileSync(j, JSON.stringify({allInstances}))
       }
      
     } else if(post){
       if(j){
-        const instances = JSON.parse(fs.readFileSync(j).toString()); 
+        const new_instances = JSON.parse(fs.readFileSync(j).toString()); 
 
-        asyncForEach(instances.instances, async instance => {
+        asyncForEach(new_instances.instances, async instance => {
           const newInstance = {
             name: instance.name,
             target: instance.target,

@@ -14,16 +14,13 @@ export default {
 
       console.log('entrou aqui')
 
-      const aux_instances = await instances.hits.hits.map(instance => {
-        const aux = {
+      return await instances.hits.hits.map(instance => {
+        return {
           name: instance._source.name,
           target: instance._source.target,
           tags: instance._source.tags
         }
-      return aux
     })
-
-    return aux_instances;
   }catch(err){
     Config.printConfig();
   }
