@@ -7,4 +7,12 @@ dist
 build
 .vscode
 
+.env
+
+.yarn
+
+.lock
+
+.log
+
 global.config.json

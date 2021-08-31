@@ -1,17 +1,14 @@
 import * as elasticsearch from 'elasticsearch';
 import * as dotenv from 'dotenv';
 
-import Config from '../modules/config'
+dotenv.config()
 
 dotenv.config();
 
 export default function getClient() {
-  const { config, erro } = Config.getConfig("elasticSearchURL")
-
-  if(erro) return
   return new elasticsearch.Client(
   {
-    host: config,
+    host: process.env.ELASTICSEARCH_URL || 'localhost:9200',
     log: 'warning'
   })
 }
