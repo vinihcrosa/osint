@@ -2,6 +2,7 @@ import { GluegunCommand } from 'gluegun'
 import * as path from 'path'
 import { Database } from 'sqlite3'
 
+import logger from '../logger'
 import getClient from '../database/elasticsearch'
 
 async function asyncForEach(array, callback) {
@@ -51,8 +52,8 @@ const Sync: GluegunCommand = {
           body: body
         })
 
-        console.log(result)
-
+        if(result._shards.successful == 1 )  logger.info(result)
+        else logger.warn(result)
       })
     })
 
