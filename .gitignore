@@ -9,10 +9,8 @@ build
 
 .env
 
-.yarn
-
-.lock
-
-.log
+*.yarn
+*.lock
+*.log
 
 global.config.json

@@ -1,7 +1,6 @@
 import getClient from '../database/elasticsearch';
  
 import { Instance } from '../types'
-import Config from './config';
 
 export default {
   async getInstances() {
@@ -21,8 +20,10 @@ export default {
           tags: instance._source.tags
         }
     })
+    //TODO: Loghs de info
   }catch(err){
-    Config.printConfig();
+    //TODO: logs de erro
+    console.log(err) 
   }
     
   },

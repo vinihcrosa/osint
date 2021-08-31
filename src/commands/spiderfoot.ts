@@ -1,14 +1,14 @@
 import {GluegunCommand} from 'gluegun';
 import * as querystring from 'querystring';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 
-import Config from '../modules/config'
+dotenv.config()
+
 import Instance from '../modules/instances';
 
-const { config, erro } = Config.getConfig("spiderfootURL")
-
 const api = axios.create({
-  baseURL: config
+  baseURL: process.env.SPIDERFOOT_URL || "localhost:5001"
 });
 
 import {asyncForEach, waitFor} from '../modules/functions'
@@ -16,8 +16,6 @@ import {asyncForEach, waitFor} from '../modules/functions'
 const spiderfoot: GluegunCommand = {
   name: "spiderfoot",
   run: async toolbox => {
-    if(erro) return
-
     const { parameters } = toolbox;
 
     const { scan } = parameters.options;
