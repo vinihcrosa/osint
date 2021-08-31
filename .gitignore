@@ -7,7 +7,4 @@ dist
 build
 .vscode
 
-yarn.lock
-yarn-error.log
-
 global.config.json
