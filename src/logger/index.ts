@@ -1,4 +1,4 @@
-import pino from 'pino'
+import * as pino from 'pino'
 
 export default pino({
   level: 'debug', // seta o nível mínimo de logs que aparecerão no console
