@@ -13,7 +13,15 @@ const spiderfoot: GluegunCommand = {
   run: async toolbox => {
     const { parameters } = toolbox;
 
-    const { scan } = parameters.options;
+    const { scan, U, URL } = parameters.options;
+
+    let spiderfootURL
+    if(U || URL) spiderfootURL = U? U : URL
+    else spiderfootURL = process.env.SPIDERFOOT_URL
+
+    const api = toolbox.http.create({
+      baseURL: spiderfootURL
+    })
 
     if(scan){
       console.log("inicia o scan");
