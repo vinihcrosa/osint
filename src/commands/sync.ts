@@ -9,14 +9,32 @@ import { asyncForEach } from '../modules/functions'
 import logger from '../logger'
 import getClient from '../database/elasticsearch'
 
-const databasePath = path.join(__dirname, '..', '..', '..', 'spiderfoot', 'spiderfoot.db')
-const database = new Database(process.env.SPIDERFOOT_DB || databasePath);
+
 const sql = "SELECT * FROM tbl_scan_instance AS I JOIN tbl_scan_results AS R ON R.scan_instance_id=I.guid JOIN tbl_event_types AS T ON R.type=T.event"
 
 const Sync: GluegunCommand = {
   name: 'sync', 
   run: async toolbox => { 
+    const { parameters } = toolbox
+
+    const { db } = parameters.options
+
+    let databasePath
+    if( db ){
+      databasePath = path.join(process.cwd(), db)
+    } else {
+      logger.warn('local do banco de dados do spiderfoot não informado')
+      return
+    }
+
+    const database = new Database( databasePath );
+
     database.all(sql, (err, rows) => {
+      if(err){
+        logger.error('Erro ao buscar resultados no banco de dados do spiderfoot')
+        console.error('Não foi possível buscar os resultadpos no banco de dados do spiderfoot')
+        return
+      }
       const total = rows.length
       const barLength = 25
 
