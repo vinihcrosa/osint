@@ -13,4 +13,5 @@ build
 *.lock
 *.log
 
+*.db
 global.config.json
