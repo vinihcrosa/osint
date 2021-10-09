@@ -1,15 +1,10 @@
 import {GluegunCommand} from 'gluegun';
 import * as querystring from 'querystring';
-import axios from 'axios';
 import * as dotenv from 'dotenv';
 
 dotenv.config()
 
 import Instance from '../modules/instances';
-
-const api = axios.create({
-  baseURL: process.env.SPIDERFOOT_URL || "localhost:5001"
-});
 
 import {asyncForEach, waitFor} from '../modules/functions'
 
@@ -44,10 +39,8 @@ const spiderfoot: GluegunCommand = {
           console.error(error.message)
         })
 
-        await waitFor(1000 * 60 * 5);
+        await waitFor(1000 * 60 * 1);
       })
-
-      api.get('');
     }
   }
 }
