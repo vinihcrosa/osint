@@ -13,7 +13,7 @@ const spiderfoot: GluegunCommand = {
   run: async toolbox => {
     const { parameters } = toolbox;
 
-    const { scan, U, URL } = parameters.options;
+    const { scan, U, URL, t, time } = parameters.options;
 
     let spiderfootURL
     if(U || URL) spiderfootURL = U? U : URL
@@ -22,6 +22,10 @@ const spiderfoot: GluegunCommand = {
     const api = toolbox.http.create({
       baseURL: spiderfootURL
     })
+
+    let minutes
+    if(t || time) minutes = t?t:time
+    else minutes = 5
 
     if(scan){
       console.log("inicia o scan");
@@ -47,7 +51,7 @@ const spiderfoot: GluegunCommand = {
           console.error(error.message)
         })
 
-        await waitFor(1000 * 60 * 1);
+        await waitFor(1000 * 60 * minutes);
       })
     }
   }
