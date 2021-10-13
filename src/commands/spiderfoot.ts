@@ -6,6 +6,8 @@ dotenv.config()
 
 import Instance from '../modules/instances';
 
+import logger from '../logger'
+
 import {asyncForEach, waitFor} from '../modules/functions'
 
 const spiderfoot: GluegunCommand = {
@@ -47,7 +49,9 @@ const spiderfoot: GluegunCommand = {
         await api.post('/startscan', querystring.stringify(data))
         .then(response => {
           console.log("scan iniciado", response.status)
+          logger.info('Iniciou o scan do target: ' + data.scantarget, response)
         }, error => {
+          logger.warn('Não iniciou o scan do target: ' + data.scantarget)
           console.error(error.message)
         })
 
