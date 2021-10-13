@@ -49,7 +49,7 @@ const spiderfoot: GluegunCommand = {
         await api.post('/startscan', querystring.stringify(data))
         .then(response => {
           console.log("scan iniciado", response.status)
-          logger.info('Iniciou o scan do target: ' + data.scantarget, response)
+          logger.info('Iniciou o scan do target: ' + data.scantarget + response)
         }, error => {
           logger.warn('Não iniciou o scan do target: ' + data.scantarget)
           console.error(error.message)
