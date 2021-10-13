@@ -1,5 +1,5 @@
 import {GluegunCommand} from 'gluegun';
-import * as querystring from 'querystring';
+//import * as querystring from 'querystring';
 import * as dotenv from 'dotenv';
 
 dotenv.config()
@@ -46,10 +46,12 @@ const spiderfoot: GluegunCommand = {
 
         console.log(data)
 
-        await api.post('/startscan', querystring.stringify(data))
+        await api.post('/newscan', data)
         .then(response => {
           console.log("scan iniciado", response.status)
-          logger.info('Iniciou o scan do target: ' + data.scantarget + response)
+          if(response.status === 200)
+            logger.info('Iniciou o scan do target: ' + data.scantarget)
+          else logger.debug('Não iniciou o scan, response: ' + JSON.stringify(response))
         }, error => {
           logger.warn('Não iniciou o scan do target: ' + data.scantarget)
           console.error(error.message)
