@@ -1,6 +1,7 @@
 import {GluegunCommand} from 'gluegun';
-//import * as querystring from 'querystring';
+import * as querystring from 'querystring';
 import * as dotenv from 'dotenv';
+import axios from 'axios';
 
 dotenv.config()
 
@@ -21,7 +22,7 @@ const spiderfoot: GluegunCommand = {
     if(U || URL) spiderfootURL = U? U : URL
     else spiderfootURL = process.env.SPIDERFOOT_URL
 
-    const api = toolbox.http.create({
+    const api = axios.create({
       baseURL: spiderfootURL
     })
 
@@ -46,7 +47,7 @@ const spiderfoot: GluegunCommand = {
 
         console.log(data)
 
-        await api.post('/newscan', data)
+        await api.post('/startscan', querystring.stringify(data))
         .then(response => {
           console.log("scan iniciado", response.status)
           if(response.status === 200)
