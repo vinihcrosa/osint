@@ -1,5 +1,5 @@
 import { GluegunCommand } from 'gluegun'
-import client from '../database/mongoClient'
+import { testMongo } from '../modules/commands/test/mongo';
 
 const Test: GluegunCommand = {
   name: 'test',
@@ -8,15 +8,7 @@ const Test: GluegunCommand = {
     const { mongo } = parameters.options;
 
     if(mongo){
-      client.connect(async err => {
-        const collection = await client.db("security").collections();
-        // perform actions on the collection object
-        console.log("Connected")
-        if(err) console.error(err);
-  
-        collection.forEach(console.log)
-        client.close();
-      });
+      testMongo();
     }
     
   }
