@@ -1,12 +1,16 @@
 import { GluegunCommand } from 'gluegun'
 
-const command: GluegunCommand = {
+const osint: GluegunCommand = {
   name: 'osint',
   run: async toolbox => {
-    const { print } = toolbox
+    const { parameters } = toolbox;
 
-    print.info('Welcome to your CLI')
+    const { init, URL, time } = parameters.options
+  
+    if (init) {
+      console.log(`URL => ${URL} - time => ${time}`)
+    }
   }
 }
 
-module.exports = command
+module.exports = osint
