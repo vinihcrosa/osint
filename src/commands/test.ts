@@ -1,24 +1,24 @@
 import { GluegunCommand } from 'gluegun'
-
-function wait(ms) {
-  return new Promise(res => setTimeout(res, ms))
-}
+import client from '../database/mongoClient'
 
 const Test: GluegunCommand = {
   name: 'test',
   run: async toolbox => {
-    const barLength = 20
+    const { parameters } = toolbox;
+    const { mongo } = parameters.options;
 
-    for (let i = 0; i <= barLength; i++) {
-      const dots = ".".repeat(i)
-      const left = barLength - i
-      const empty = " ".repeat(left)
-
-      process.stdout.clearLine(1)
-      process.stdout.write(`\r[${dots}${empty}] ${i * 100/barLength}%`)
-
-      await wait(1000)
+    if(mongo){
+      client.connect(async err => {
+        const collection = await client.db("security").collections();
+        // perform actions on the collection object
+        console.log("Connected")
+        if(err) console.error(err);
+  
+        collection.forEach(console.log)
+        client.close();
+      });
     }
+    
   }
 }
 
